@@ -7,7 +7,7 @@ This game is a game where you collect tomatoes without hitting obstacles by usin
 ## A
 
 <br/>
-<img src="https://github.com/BekirrUgur/3D-Mobile-Game/blob/main/Presentation/carGame-j-1.PNG" width="1000px">
+<img src="https://github.com/BekirrUgur/3D-Mobile-Game/blob/main/Presentation/carGame-j-1.PNG" width="100px">
 <br/>
 
 ## Login
