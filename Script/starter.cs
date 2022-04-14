@@ -23,10 +23,10 @@ public class starter : MonoBehaviour
             PlayerPrefs.SetInt("lvl_rqrd", 10);
         }
     }
-    //Baþlangýç menüsündeki "Reset" butonu
+    //"Reset" button in the start menu
     public void delete_all()
     {
-        //IndexedDB içerisindeki tüm veriyi siler
+        //Deletes all data in IndexedDB
         PlayerPrefs.DeleteAll();
         Debug.Log("DELETED");
         reset_bar.SetActive(true);
@@ -34,18 +34,18 @@ public class starter : MonoBehaviour
     }
     public void mini_menu() 
     {
-        //Oyun içi durudurma ekraný
+        //In-game pause screen
         canvas.SetActive(true);
         Time.timeScale = 0;
         
     }
-    //Ana menüye dönüþ butonu
+    //Return to main menu button
     public void go_menu() 
     {
         SceneManager.LoadScene("MainScreen", LoadSceneMode.Single);
 
     }
-    //Oyunu devam ettir butonu
+    //Resume game button
     public void continue_game() 
     {
         Time.timeScale = 1;

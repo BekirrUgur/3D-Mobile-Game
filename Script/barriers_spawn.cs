@@ -11,7 +11,7 @@ public class barriers_spawn : MonoBehaviour
 
     int lvl_barriers;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         spawn_place = GameObject.FindGameObjectsWithTag("Respawn");
@@ -23,11 +23,11 @@ public class barriers_spawn : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        //Her seviyede gelecek olan bariyer sayısını kontrol eder eğer maksimum seviyeyi aşmışsa oyunda kırılma olmaması için sabitler.
-        if(lvl_barriers >= 16) 
+        //It controls the number of barriers that will come in each level, and if it exceeds the maximum level, it is fixed so that there is no break in the game.
+        if (lvl_barriers >= 16) 
         {
             lvl_barriers = 16;
         }
@@ -36,7 +36,7 @@ public class barriers_spawn : MonoBehaviour
     {
         //16
         int control = -1;
-        //Sahne içerisine yüklenecek olan bariyerler belirlenen "spawn" ortaya çıkma noktalarında bariyerler arasında rastgele bir şekilde sahneye çağırılır.
+        //Barriers to be loaded into the scene are randomly summoned to the scene between the barriers at the determined "spawn" spawn points.
         for (int i = 0; i < lvl_barriers+6; i++)
         {
             int rast = Random.Range(0, barriers.Length);
@@ -57,8 +57,8 @@ public class barriers_spawn : MonoBehaviour
                 GameObject new_barriers = Instantiate(barriers[rast - 1], spawn_place[i].transform.position, Quaternion.identity);
             }
 
-        } 
-        //Sahnede toplanılan domateslerin engellerin posizyonlarına göre belirli bir aralıkla sahneye çağırılır.
+        }
+        //The part where the tomatoes collected on the stage are called to the stage at a certain interval according to the positions of the obstacles.
         for (int i = 0; i < lvl_barriers+6; i++)
         {
             int rnos = Random.Range(0, 3);

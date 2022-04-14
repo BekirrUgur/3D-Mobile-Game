@@ -67,7 +67,7 @@ public class carControl : MonoBehaviour
     {
         Application.targetFrameRate = 60;
      
-        //Oyun içindeki private olan nesnelerin atamasý yapýlýyor.
+        
         b_spawn_place = GameObject.FindGameObjectsWithTag("b_spawn");
         point = GameObject.Find("player/Crash_sound/point").GetComponent<AudioSource>();
         
@@ -77,17 +77,17 @@ public class carControl : MonoBehaviour
     {
         
         Invoke("eng_s_start", 0.2f);
-        //Araç motorunu bir fonksiyon aracýlýðý ile program baþladýktan belirli bir süre sonra çalýþtýrýyoruz.
+        //We start the vehicle engine through a function after a certain period of time after the program starts.
         InvokeRepeating("eng_speed", .0f * Time.deltaTime, .025f);
        
     }
     
     void eng_speed()  
     {
-        //Araç hýzýný kontrol ediyor
+        //Controlling vehicle speed
         if (IsMove && rb.velocity.magnitude*2 < 40.0f)
         {
-            //Aracýn hareketini gerçekleþtirmesi rigidbody yani fizik bileþenine eklenen güç hesaplanýp ekleniyor.
+            //The power added to the rigidbody, that is, the physics component, is calculated and added to the movement of the vehicle.
             rb.AddForce(Vector3.forward * 200.0f * maxEngineHp * Time.deltaTime, ForceMode.Force);
         }
         
@@ -101,10 +101,10 @@ public class carControl : MonoBehaviour
 
     void Update()
     {
-        //Araç hareket halindeyken hýz deðerlerini tutar ve motor sesini araç hýzýna göre ayarlar.
+        //While the vehicle is in motion, it keeps the speed values and adjusts the engine sound according to the vehicle speed.
         if (carÝsmove==true) 
         {
-            // "c_tom_bar" etiketine sahip oyun nesnelerini sahne içerisinde düzenli olarak destroyer dizisine atar.
+            //Regularly assigns game objects labeled "c_tom_bar" to the destroyer array within the scene.
             destroyer = GameObject.FindGameObjectsWithTag("c_tom_bar");
 
             Debug.Log(destroyer.Length);
@@ -113,28 +113,26 @@ public class carControl : MonoBehaviour
             engine_sound.pitch = x / 100 * 3;
             audio_s = transform.InverseTransformDirection(rb.velocity).z * audio_s_settings;
         }
-        
 
-        
-        //Mobil telefon ekranýna temasý kontrol eder.
+
+
+        //Controls contact with mobile phone screen.
         if (Input.touchCount > 0)
         {
             touch = Input.GetTouch(0);
-            //Eðer temas delta x pozisyonunda 15.0 piksellik bir kayma gerçekleþtirirse 
+            
             if (touch.deltaPosition.x >15.0f)
             {
                 
-                //30 derecelik bir dönüþ deðeri oluþturulur
+                
                 crRotate = 30;
-                //Ön tekerlerin colliderlerýnýn dönüþ açýlarýný crRotate açýsýna eþitler ve aracýn tekerlerinin dönmesini saðlar.
+                //It equalizes the rotation angles of the colliders of the front wheels to the angle of crRotate and enables the wheels of the vehicle to rotate.
                 frRightCol.steerAngle = crRotate;
                 frLeftCol.steerAngle = crRotate;
                 
            
             }
            
-            
-            // Temasýn delta x pozisyonunda eksi yönde yani ha<reket etmesi halinde ayný iþlevi gerçekletirir araç tekerleri sola 30 derecelik bi açý verir.
             if (touch.deltaPosition.x <-15.0f)
             {
                 
@@ -147,7 +145,7 @@ public class carControl : MonoBehaviour
            
 
         }
-        //Temas olmamasý halinde aracýn stabilitesini korumak için teker açýlarýný sýfýrlar
+        //Resets wheel angles to maintain vehicle stability in the absence of contact
         if (Input.touchCount == 0)
         {
             crRotate = 0;
@@ -157,14 +155,13 @@ public class carControl : MonoBehaviour
 
         _brakeTorque = brakePower * Mathf.Abs(Input.GetAxis("Jump"));
 
-        //Fren torku belirli bir deðerin altýnda olduðu takdirde 
         if (_brakeTorque < 0.05f) 
         {
-          //Ön tekerlere etki eden motor torklarý belirlenen motor gücüne göre aktarýlýr
+            //Engine torques acting on the front wheels are transferred according to the determined engine power.
             frLeftCol.motorTorque = engine;
             frRightCol.motorTorque = engine;
 
-            //Tekerlere uygulanan döndürme kuvvetinin etkilenmemesi ve boþa enerji kaybý olmamasý için fren torklarý 0 deðerine sabitlenir.
+            //Brake torques are fixed to 0 so that the turning force applied to the wheels is not affected and there is no wasted energy loss.
             bcLeftCol.brakeTorque = 0;
             bcRightCol.brakeTorque = 0;
             frLeftCol.brakeTorque = 0;
@@ -181,18 +178,18 @@ public class carControl : MonoBehaviour
 
         VirtualWheels();
 
-        //Aracýn transfom bileþenindekiy deðeri sahnenin delta y 0 posizyonundan daha düþük bir deðere sahip loursa
+        //Occurs if the y value in the tool's transform component is lower than the delta y 0 position of the scene.
         if (transform.position.y < 0.0f) 
         {
-           //Kullanýcýnýn karþýsýna kullanýcý arayüzü(UI) ekranlarý gelir
+           
             canvas.SetActive(true);
             engine_sound.Stop();
             canvas_2.SetActive(false);
 
             button_1.SetActive(false);
             button_2.SetActive(false);
-           
-            //Oyunun zaman ölçeði 0 deðerine yani hareketsizliðe eþitlenir
+
+            //The game's time scale is set to 0, i.e. inactivity
             Time.timeScale = 0;
         }
 
@@ -205,33 +202,33 @@ public class carControl : MonoBehaviour
 
     }
 
-    //OnTriggerEnter fonksiyonu colliderlar arasýnda yumuþak bir çarpýþma olduðu sýrada fonksiyon aktif olur
+    //The part where the vehicle interacts with collectible objects
     private void OnTriggerEnter(Collider other)
     {
         
-        //Aracýn colliderý etiketi nos olan bir oyun nesnesiyle yumuþak çarpýþma gerçekleþtirdiði zaman
+        
         if (other.gameObject.tag == "nos")
         {
 
-            //Toplanýlan ödül 1 arttýrýlý UI ekranýna yazýlýr.
+            //The collected reward is written on the UI screen with 1 increment.
             tomato_num += 1;
             tomato_number.SetText(tomato_num.ToString());
-            //Oyun içi AudioSource bileþeni aktif edilir ve 8-bitlik kazaným sesi çalýnýr.
+            //The in-game AudioSource component is activated and 8-bit gain audio is played.
             point.Play();
-            //Temas edilen oyun nesnesi sahneden silinir
+            //The touched game object is deleted from the scene
             Destroy(other.gameObject);
 
-            //Prefab olarak oluþturulan oyun nesnesi her temas halinde sahne içerisinde belirlenen transform noktasýna Instantine edilir.
+            //The game object created as a prefab is instantinated to the specified transform point in the scene at each contact.
             q = destroyer.Length-1;
             GameObject new_t_barrel = Instantiate(t_barrel, new Vector3(b_spawn_place[q].transform.position.x, b_spawn_place[q].transform.position.y, b_spawn_place[q].transform.position.z), Quaternion.identity);
-            //Instantine edilen nesne ile araç nesnemizin transformlarý birbirine sabitlenir.
+            //The transforms of the instantine object and our vehicle object are fixed to each other.
             new_t_barrel.transform.parent = gameObject.transform;
                 
 
         }
         if (other.gameObject.tag == "Finish")
-        { 
-            //Sistemi yormamak için daha önce sistemde çalýþtýrmýþ olduðumuz Invokelar iptal edilir
+        {
+            //Invokes that we have run on the system before are canceled in order not to tire the system.
             CancelInvoke();
 
             if (crash_activity == false)
@@ -239,11 +236,11 @@ public class carControl : MonoBehaviour
 
                 engine_sound.Stop();
                 carÝsmove = false;
-                
-                //crash_activity deðiþkeni ayný collider içerisindeki ince katman çarpýþmalarýný engellemek ve sistemde açýk býrakmamak için her çarpýþmada aktif olur.
+
+                //The crash_activity variable is active in every collision to prevent thin layer collisions within the same collider and not leave it open in the system.
                 crash_activity = true;
 
-                // "inactive" fonksiyonu 1.0sn gecikmeli çaðýrýlarak çarpýþma bileþenini tekrar aktif eder.
+                //The "inactive" function is called with a delay of 1.0s and reactivates the collision component.
                 Invoke("inactive", 1.0f);
                 
 
@@ -251,7 +248,7 @@ public class carControl : MonoBehaviour
             
             GameObject[] c_tom = GameObject.FindGameObjectsWithTag("c_tom_bar");
 
-            //Sahne içerisindeki kýrýlmayý engellemek için kullanýcýn 0 ödül toplama yapmasý halinde alternatif oyun sonuna gidilir.
+            //In order to prevent the break in the stage, if the user collects 0 prizes, the alternative game ends.
             if (c_tom.Length <= 1) 
             {
 
@@ -268,7 +265,7 @@ public class carControl : MonoBehaviour
         {
             Debug.Log("Flying Barrel");
 
-            //Prefab olarak çaðýrýlan nesnelerin sahne içerisinde referans olarak bulunmasý gerektiði için dizi içerisinde referans nesnesini yok saymak için referans nesnesi dizide yok sayýlýr
+            //The reference object is ignored in the array to ignore the reference object in the array, as objects called prefabs must be referenced in the scene
             m = destroyer.Length - 1;
             point_check = true;
             GetComponent<BoxCollider>().enabled = false;
@@ -286,7 +283,7 @@ public class carControl : MonoBehaviour
         
         if (m>0) 
         {
-            //destroyer dizisi içerisindeki nesneler "point_2" nesnesini bulunduðu konuma animasyon aracýlýðý ile konumu eþitlenir. 
+            //The objects in the destroyer array are synchronized to the location of the "point_2" object through animation. 
             destroyer[m].transform.LeanMove(GameObject.Find("point_2").transform.position, 4).setEase(LeanTweenType.easeInOutSine);
             destroyer[m].LeanRotate(new Vector3(0, 180, 0), 1.4f).setEase(LeanTweenType.easeInBounce);
            
@@ -297,30 +294,30 @@ public class carControl : MonoBehaviour
 
 
     }
-  
-    //OnCollisonEnter colliderler arasýnda sert çarpýþamlarý tetikler.
+
+    //Collisions with hard physical contact with the vehicle.
     private void OnCollisionEnter(Collision collision)
     {
 
         Debug.Log(collision.gameObject.tag);
 
-//Sahnede bulunan engeller taglarý ile biribirinden ayrýlýr 
+        
         if (collision.gameObject.tag == "tire")
         {
 
-            
-            //Çarpýþma ikileminii önlemek için "crash_activity" ile koþul deðerlendirilir 
+
+            //Condition is evaluated with "crash activity" to avoid collision dilemma.
             if (crash_activity==false) 
             {
                
                 tomato_minus();
-                // Motor sesi, çarpýþma seslerini tetikler 
+                
                 engine_sound.pitch -= .05f;
                 au_crash.Play();
                 crash_activity = true;
                 Invoke("inactive", 1.0f);
 
-                //destroyer dizisinde eleman var ise çarpýþam sonucu topladýðý bir kazanýmý oyun sahnesinden siler.
+                //If there is an element in the destroyer array, it deletes an achievement(tomato) from the game scene as a result of the collision.
                 if (destroyer.Length>1) { Destroy(destroyer[destroyer.Length-1]); }
                
                 
@@ -384,15 +381,13 @@ public class carControl : MonoBehaviour
 
     }
 
-    //UI ekranýndaki sol köþede bulunan domates adedinin eksilmesini saðlar.
+    //It reduces the number of tomatoes in the left corner of the UI screen.
     private void tomato_minus() 
     {
 
         if (tomato_num <= 0)
         {
             tomato_num = 0;
-
-            //UI üzerinde "tomato_number" text içerisine müdahele eder.
             tomato_number.SetText(tomato_num.ToString());
         }
         else
@@ -407,12 +402,12 @@ public class carControl : MonoBehaviour
     {
         crash_activity = false;
     }
-   
-  
-    //Aracýn hareket etmesi için sanal tekerler.
+
+
+    //Virtual wheels for the vehicle to move.
     void VirtualWheels()
     {
-        //Aracýn tüm tekerleklerinin colliderlarýný, mesh pozisyonlarýný ve rotasyonlarýný "GetWorldPose" ile sahnenin delta x,y,z posizyonlarýna göre sabitler.
+        //It fixes the colliders, mesh positions and rotations of all wheels of the vehicle with "GetWorldPose" according to the delta x,y,z positions of the scene.
         frLeftCol.GetWorldPose(out pos, out rot);
         frLeft.transform.position = pos;
         frLeft.transform.rotation = rot;

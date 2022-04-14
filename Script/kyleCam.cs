@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class kyleCam : MonoBehaviour
 {
-    // Start is called before the first frame update
+   
     GameObject pl;
     Vector3 distance;
 

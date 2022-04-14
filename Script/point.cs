@@ -19,7 +19,6 @@ public class point : MonoBehaviour
     bool set = true;
 
    
-    // Update is called once per frame
     void Update()
     {
         if (set) { barrels = GameObject.FindGameObjectsWithTag("c_tom_bar"); }
@@ -28,18 +27,17 @@ public class point : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Animasyonlarla harekket ettiridðimiz varillerin çarpýp çarpmadýðýný kontrol eder.
+        //It checks whether the barrels we move with animations are hit or not.
         if (other.gameObject.tag == "c_tom_bar") 
         {
             point_audio.Play();
             set = false;
-            //Çarpan nesne yok edilir.
             Destroy(other.gameObject);
-            //oyunun devamýndaki sahne için kullanýlacak olan "tomat" nesnesi sahneye instant edilir.
+            //The "tomat" object that will be used for the next scene of the game is instantiated to the scene.
             GameObject new_tomato = Instantiate(tomat, tomat_spawn.transform.position, Quaternion.identity);
             x += 1;
 
-             //Tüm çarpýþma bittiði takdirde çatý kamerasýna geçilir ve diðer sahne aktif olur.
+            //If all the collision is over, the roof camera will be switched to and the other scene will be active.
             if (barrels.Length-1==x) 
             {
                 fin_cam.SetActive(false);

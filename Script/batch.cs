@@ -28,18 +28,18 @@ public class batch : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && roof_cam.GetComponent<Camera>().enabled==true)
             {
 
-                // "ray" deðiþkeni ile kullanýcýnýn gördüðü ekran üzerinde dokunulan nokta üzerinde bir sanal ýþýn oluþturur.
+                
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                // Sanal ýþýk fizik bileþenleri verilerek, ýþýk gücü z posizyonunda 100.0 birim oluþturulur.
+                
                 Physics.Raycast(ray, out hit, 100.0f);
                 if (hit.collider.gameObject.tag == "last_tomato")
                 {
                     if (added == null)
                     {
-                        //Nesneleri parmaðýmýzla tutup hareket ettirebilmemiz için prefab olan "catcher_clone" çaðýrýlýr
+                        //The prefab "catcher_clone" is called so that we can grab and move objects with our finger
                         added = Instantiate(catcher_clone, hit.point, Quaternion.identity);
-                        
-                        //prefab nesnenþn içinde bulunan Springjoint baðý ýþýn çarpýþmasý gerçekleþen nesnenin fizik bileþeni ile baðlanýr.
+
+                        //The SpringJoint bond inside the prefab object connects with the physics component of the object whose beam collision occurred.
                         added.GetComponent<SpringJoint>().connectedBody = hit.collider.gameObject.GetComponent<Rigidbody>();
                         distance = Input.mousePosition - Camera.main.WorldToScreenPoint(added.transform.position);
                     }
@@ -48,12 +48,12 @@ public class batch : MonoBehaviour
 
                 }
             }
-            //Temas býrakýlmasý halinde catcher_clone" yok edilir
+            //The catcher_clone" is destroyed if contact is released
             if (Input.GetMouseButtonUp(0))
             {
                 Destroy(added);
             }
-            //Temas sürmei halinde "catcher_clone" ve ýþýn çarpýþmasý gerçekleþen nesnenin biribirini takip etmesi saðlanýr.
+            //In case of continued contact, the "catcher_clone" and the object with beam collision will follow each other.
             if (Input.GetMouseButton(0))
             {
 
@@ -67,7 +67,7 @@ public class batch : MonoBehaviour
         
         lt = GameObject.FindGameObjectsWithTag("last_tomato");
 
-        // Kullanýcý yanmadýðý takdirde gerçekleþen oyun sonu 
+        //Endgame if the player doesn't die 
         if (roof_cam.GetComponent<Camera>().enabled == true) 
         {
             
@@ -75,7 +75,7 @@ public class batch : MonoBehaviour
             {
                 isActive = false;
 
-                //ScoreManager class ý içerisinden final_score() fonksiyonuna ulaþýlýr bu fonksiyon oyun sonu skorunu yazdýrýr.
+                //The final_score() function is accessed from within the ScoreManager class, this function prints the endgame score.
                 scoreManager.Instance.final_score();
 
                 required.SetText("Unlock Stage: "+PlayerPrefs.GetInt("lvl_rqrd").ToString());

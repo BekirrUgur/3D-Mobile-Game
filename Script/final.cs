@@ -20,8 +20,8 @@ public class final : MonoBehaviour
             
             fin_cam.SetActive(true);
             sec_cam.SetActive(false);
-            
-            //Oyuncu final nesnesinin colilderýna temas ettiði anda aracýn belirlenen noktaya ulaþmasýný saðlayan animasyon.
+
+            //As soon as the player touches the collider of the last object, the animation is triggered that makes the vehicle reach the specified point.
             GetComponent<BoxCollider>().enabled = false;
             GameObject.Find("player").transform.LeanMove(GameObject.Find("Point").transform.position, 4).setEase(LeanTweenType.easeInOutSine);
             GameObject.Find("player").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;

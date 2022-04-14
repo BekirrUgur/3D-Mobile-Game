@@ -11,12 +11,12 @@ public class crash_cam : MonoBehaviour
     private void Start()
     {
         pl = GameObject.FindWithTag("Player");
-        //Oyuncu ve kamera arasýndaki mesafeyi belirler.
+        //Sets the distance between the player and the camera.
         distance = transform.position - pl.transform.position;
     }
     private void Update()
     {
-        //Sahne içerisinde sürekli olarak aradaki mesafeyi biribirine eþitleyerek iki nesnenin posizyonun aralarýnda sabit kalmasýný saðlar ve kamera oyuncuyu takip eder.
+        //By constantly equalizing the distance between the two objects in the scene, the position of the two objects remains fixed between them and the camera follows the actor.
         transform.position = pl.transform.position + distance;
     }
 }

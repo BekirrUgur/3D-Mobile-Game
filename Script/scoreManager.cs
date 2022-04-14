@@ -26,13 +26,13 @@ public class scoreManager : MonoBehaviour
         
     }
 
-    // Skor ekleme fonksiyonu
+    //Add score function
     public void add_score(int _score) 
     {
         score += _score; 
     }
-   
-    // Oyun sonu skoru 
+
+    //End game score
     public void final_score() 
     {
         totalScore = score;
