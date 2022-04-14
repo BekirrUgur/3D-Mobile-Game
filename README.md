@@ -13,7 +13,7 @@ This game is a game where you collect tomatoes without hitting obstacles by usin
 <br/>
 
 <br/>
-[https://google.com]("Car Platform Game")
+[bura](https://google.com)
 <br/>
 
 ## Game Mechanics and Features
