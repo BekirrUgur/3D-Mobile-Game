@@ -13,6 +13,9 @@ This game is a game where you collect tomatoes without hitting obstacles by usin
 ### -Objects broken and thrown around in the event of an accident.
 ### -Playable on mobile (touch input).
 ### -Obstacles that spawn in different order at the start of each game.
+### -Variable vehicle speed based on collision.
+### -Game points stored at the end of each game.
+### -Game points collected for the new level
 
 
 
