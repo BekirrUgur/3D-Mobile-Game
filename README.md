@@ -13,7 +13,7 @@ This game is a game where you collect tomatoes without hitting obstacles by usin
 <br/>
 
 <br/>
-[bura](https://google.com)
+[adadadad]()
 <br/>
 
 ## Game Mechanics and Features
