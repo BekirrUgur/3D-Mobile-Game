@@ -15,7 +15,9 @@ This game is a game where you collect tomatoes without hitting obstacles by usin
 ### -Obstacles that spawn in different order at the start of each game.
 ### -Variable vehicle speed based on collision.
 ### -Game points stored at the end of each game.
-### -Game points collected for the new level
+### -Game points collected for the new level.
+### -Objects that the player can throw.
+
 
 
 
