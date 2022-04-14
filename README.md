@@ -8,8 +8,11 @@ This game is a game where you collect tomatoes without hitting obstacles by usin
 <img src="https://github.com/BekirrUgur/3D-Mobile-Game/blob/main/Presentation/carGame-j-1.PNG" width="250px">
 <br/>
 
-## Game Mechanics
-### deneme
+## Game Mechanics and Features
+### -6 types of obstacles.
+### -Objects broken and thrown around in the event of an accident.
+### -Playable on mobile (touch input).
+### -Obstacles that spawn in different order at the start of each game.
 
 
 
