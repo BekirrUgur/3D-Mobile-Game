@@ -21,8 +21,4 @@
 ## Active Properties
 
 ### -Add a post
-### -Register
-### -User login
-### -About us
-### -Home page
-### -Mobile Compatibility 
+
